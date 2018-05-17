@@ -1,1 +1,1 @@
-<h2>Ecommerce php7</h2>
+<h2>Ecommerce PHP7</h2>
