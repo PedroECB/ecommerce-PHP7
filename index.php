@@ -99,6 +99,7 @@ $app->post('/admin/users/create', function(){
     
 
    $user = new User();
+   $_POST['inadmin'] = (isset($_POST['inadmin']))?1:0;
    $user->setData($_POST);
    $user->save();
  
