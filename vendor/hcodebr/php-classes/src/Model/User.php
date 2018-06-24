@@ -7,6 +7,7 @@ use \Hcode\Model;
 class User extends Model{
 
  const SESSION = "User";
+ const SECRET = "HcodePhp7_Secret"
 
   public static function login($login, $senha){
     $sql = new Sql();
@@ -96,4 +97,87 @@ public function get($iduser){
 }
 
 
+
+
+
+public function update(){
+
+    $sql = new Sql();
+    $result = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
+      ":iduser"=>$this->getiduser(),
+      ":desperson"=>$this->getdesperson(),
+      ":deslogin"=>$this->getdeslogin(),
+      ":despassword"=>$this->getdespassword(),
+      ":desemail"=>$this->getdesemail(),
+      ":nrphone"=>$this->getnrphone(),
+      ":inadmin"=>$this->getinadmin()
+    ));
+
+ $this->setData($result[0]);
 }
+
+
+public function delete(){
+
+  $sql = new Sql();
+  $sql->query("CALL sp_users_delete(:iduser)", array(":iduser"=>$this->getiduser()));
+}
+
+
+
+public static function getForgot($email){
+
+  $sql = new Sql();
+
+  $result = $sql->select("SELECT * FROM db_ecommerce.tb_persons a inner join tb_users b using(idperson) where a.desemail=:email", 
+    array(":email"=>$email));
+
+  if(count($result === 0)){
+     throw new \Exception('Não foi possível recuperar a senha');
+  
+  }else{
+
+     $data = $result[0];
+
+     $results2 = $sql->select("CALL sp_userspasswordsrecoveries_create (:iduser, :desip)", 
+        array(":iduser"=>$data["iduser"],
+              ":desip"=>$_SERVER["REMOTE_ADDR"]
+    ));
+
+     if(count($results2) === 0){
+
+          throw new \Exception('Não foi possível recuperar a senha', 4);
+     
+     }else{
+
+        $datarecovery = $results2[0];
+
+        $code = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, User::SECRET,$datarecovery['idrecovery'], 
+          MCRYPT_MODE_ECB));
+
+        $link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+
+
+     }
+
+
+
+
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}   // FIM DA CLASSE
