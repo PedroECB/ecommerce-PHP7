@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -19,7 +19,7 @@
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com../../resourcespond/1.4.2../../resourcespond.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
 <body class="hold-transition lockscreen">
@@ -28,29 +28,15 @@
   <div class="lockscreen-logo">
     <a href="../../resources/admin/index2.html"><b>Admin</b>LTE</a>
   </div>
-  
-   <div class="help-block text-center">
-     Olá {$name}, digite uma nova senha:
-    </div>
 
-  <!-- START LOCK SCREEN ITEM -->
-  <div class="lockscreen-item">
-
-    <!-- lockscreen credentials (contains the form) /admin/forgot../../resourceset-->
-    <form  action="/admin/forgot/reset" method="post">
-      <input type="hidden" name="code" value="{$code}">
-      <div class="input-group">
-        <input type="password" class="form-control" placeholder="Digite a nova senha" name="password">
-        <div class="input-group-btn">
-          <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
-        </div>
-      </div>
-    </form>
-    <!-- /.lockscreen credentials -->
-
-  </div>
   <!-- /.lockscreen-item -->
-  
+  <div class="help-block text-center">
+    <div class="callout callout-success">
+      <h4>E-mail enviado!</h4>
+
+      <p>Verifique as instruções no seu e-mail.</p>
+    </div>
+  </div>
   <div class="lockscreen-footer text-center">
     Copyright &copy; 2014-2016 <b><a href="http://almsaeedstudio.com" class="text-black">Almsaeed Studio</a></b><br>
     All rights reserved
