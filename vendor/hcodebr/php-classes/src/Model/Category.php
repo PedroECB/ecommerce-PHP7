@@ -65,7 +65,53 @@ file_put_contents($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "views" . DI
 }
 
 
+public function getProducts($related = true){
 
+$sql = new Sql();
+
+if($related == true){
+
+    return  $sql->select("SELECT * FROM tb_products where idproduct in (
+                    SELECT a.idproduct 
+                    FROM tb_products a 
+                    inner join tb_productscategories b on a.idproduct = b.idproduct 
+                    where b.idcategory =:idcategory );
+                ", array(":idcategory"=>$this->getidcategory()));
+
+      }else{
+
+        return  $sql->select("
+            SELECT * FROM tb_products where idproduct NOT in (
+            SELECT a.idproduct 
+            FROM tb_products a 
+            inner join tb_productscategories b on a.idproduct = b.idproduct 
+            where b.idcategory =:idcategory
+
+
+);", array(":idcategory"=>$this->getidcategory()));
+
+  }
+
+}
+
+
+public function addProduct(Product $product){
+
+  $sql = new Sql();
+  $sql->query("INSERT INTO tb_productscategories (idcategory, idproduct) VALUES (:idcategory, :idproduct)", 
+    array(":idcategory"=>$this->getidcategory(),
+          ":idproduct"=>$product->getidproduct()));
+
+}
+
+public function removeProduct(Product $product){
+
+  $sql = new Sql();
+  $sql->query("DELETE FROM tb_productscategories WHERE idcategory=:idcategory AND  idproduct=:idproduct", 
+    array(":idcategory"=>$this->getidcategory(),
+          ":idproduct"=>$product->getidproduct()));
+
+}
 
 
 
