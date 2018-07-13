@@ -9,6 +9,8 @@ class User extends Model{
 
  const SESSION = "User";
  const SECRET = "HcodePhp7_Secret";
+ const ERROR = "UserError";
+ const ERROR_REGISTER = "UserErrorRegister";
 
 
  public static function getFromSession(){
@@ -61,7 +63,7 @@ class User extends Model{
 
   public static function login($login, $senha){
     $sql = new Sql();
-    $results = $sql->select("SELECT * FROM tb_users WHERE deslogin=:LOGIN", array(
+    $results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b ON a.idperson=b.idperson  WHERE deslogin=:LOGIN", array(
       ":LOGIN"=>$login
     ));
 
@@ -76,6 +78,8 @@ class User extends Model{
     if(password_verify($senha, $data['despassword'])){
 
        $user = new User();
+
+       $data['desperson'] = utf8_encode($data['desperson']);
 
        $user->setData($data);
 
@@ -95,9 +99,14 @@ class User extends Model{
 
 public static function verifyLogin($inadmin = true){
 
-  if(User::checkLogin($inadmin)){
+  if(!User::checkLogin($inadmin)){
 
-      header("Location: /admin/login");
+      if($inadmin){
+        header("Location: /admin/login");
+      
+      }else{
+         header("Location: /login");
+      }
       exit;
   }
 }
@@ -137,6 +146,10 @@ public function get($iduser){
   $sql = new Sql();
   $result = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(idperson) WHERE a.iduser = :iduser"
     , array(":iduser"=>$iduser));
+
+  $data = $result[0];
+
+  $data['desperson'] = utf8_encode($data['desperson']);
 
   $this->setData($result[0]);
 
@@ -271,6 +284,67 @@ public function setPassword($password){
     ":iduser"=>$this->getiduser()
   ));
 }
+
+public static function setError($msg){
+
+$_SESSION[User::ERROR] = $msg;
+
+
+}
+
+
+public static function getError(){
+
+  $msg = (isset($_SESSION[User::ERROR])) ? $_SESSION[User::ERROR] : "";
+
+  User::clearError();
+
+  return $msg;
+
+}
+
+public static function getErrorRegister(){
+
+  $msg = (isset($_SESSION[User::ERROR_REGISTER]) && $_SESSION[User::ERROR_REGISTER]) ? $_SESSION[User::ERROR_REGISTER] : '';
+
+  User::clearError();
+
+  return $msg;
+
+}
+
+
+
+public static function clearError(){
+
+  $_SESSION[User::ERROR] = NULL;
+
+
+
+}
+
+public static function setErrorRegister($msg){
+
+  $_SESSION[User::ERROR_REGISTER] = $msg;
+
+
+}
+
+
+public static function checkLoginExist($login){
+
+  $sql = new Sql();
+
+  $results = $sql->select("SELECT * FROM tb_users WHERE deslogin=:deslogin", array(":deslogin"=>$login));
+
+  return (count($results)>0);
+
+
+
+}
+
+
+
 
 
 
