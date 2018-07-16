@@ -11,6 +11,7 @@ class User extends Model{
  const SECRET = "HcodePhp7_Secret";
  const ERROR = "UserError";
  const ERROR_REGISTER = "UserErrorRegister";
+ const SUCCESS = "UserSuccess";
 
 
  public static function getFromSession(){
@@ -184,7 +185,7 @@ public function delete(){
 
 
 
-public static function getForgot($email){
+public static function getForgot($email, $inadmin = true){
 
 //$email2 = "pedrosophbc@gmail.com";
 
@@ -218,7 +219,17 @@ public static function getForgot($email){
         $code = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, User::SECRET,$datarecovery['idrecovery'], 
           MCRYPT_MODE_ECB));
 
-        $link = "http://www.ecommercephp7.com/admin/forgot/reset?code=$code";
+        if($inadmin == true){
+
+          $link = "http://www.ecommercephp7.com/admin/forgot/reset?code=$code";
+        }else{
+
+
+          $link = "http://www.ecommercephp7.com/forgot/reset?code=$code";
+        }
+
+
+        
 
         $mailer = new Mailer($data['desemail'],$data['desperson'], "Redefinir Senha da Hcode Store", "forgot", 
           array("name"=>$data['desperson'],
@@ -289,19 +300,70 @@ public static function setError($msg){
 
 $_SESSION[User::ERROR] = $msg;
 
-
 }
 
 
 public static function getError(){
 
-  $msg = (isset($_SESSION[User::ERROR])) ? $_SESSION[User::ERROR] : "";
+  //$msg = isset($_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : "Desgraça";
+
+  if(isset($_SESSION[User::ERROR])){
+
+    $msg = $_SESSION[User::ERROR];
+
+  }else{  $msg = '';  }
 
   User::clearError();
 
   return $msg;
 
 }
+
+
+
+
+
+public static function clearError(){
+
+  $_SESSION[User::ERROR] = NULL;
+
+
+
+}
+                                            ////////////////////////
+
+
+public static function setSuccess($msg){
+
+$_SESSION[User::SUCCESS] = $msg;
+
+
+}
+
+
+public static function getSuccess(){
+
+  $msg = (isset($_SESSION[User::SUCCESS])) ? $_SESSION[User::SUCCESS] : "";
+
+  User::clearError();
+
+  return $msg;
+
+}
+
+
+
+
+
+public static function clearSuccess(){
+
+  $_SESSION[User::SUCCESS] = NULL;
+
+
+
+}
+
+
 
 public static function getErrorRegister(){
 
@@ -313,15 +375,6 @@ public static function getErrorRegister(){
 
 }
 
-
-
-public static function clearError(){
-
-  $_SESSION[User::ERROR] = NULL;
-
-
-
-}
 
 public static function setErrorRegister($msg){
 

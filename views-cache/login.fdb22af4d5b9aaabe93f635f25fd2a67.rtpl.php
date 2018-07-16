@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-6">
                 
-                <?php if( isset($errorRegister) ){ ?>
+                <?php if( $errorRegister !== '' ){ ?>
 
                 <div class="alert alert-danger">
                     <?php echo htmlspecialchars( $errorRegister, ENT_COMPAT, 'UTF-8', FALSE ); ?>
