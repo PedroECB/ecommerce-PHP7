@@ -22,9 +22,14 @@ use \Hcode\Model;
       ':vltotal'=>$this->getvltotal()
     ]);
 
+  
+
     if(count($results)>0){
 
         $this->setData($results[0]);
+    }else{
+
+      throw new \Exception('Falha no save da classe Order', 7);
     }
 
 

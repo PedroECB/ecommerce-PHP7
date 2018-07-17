@@ -46,13 +46,19 @@ class Address extends Model{
 
     }
 
+
+var_dump($data);
+
+
+
   }
 
 
 public function save(){
 
   $sql = new Sql();
-  /*$results = $sql->select("CALL sp_addresses_save(:idaddress, :idperson, :desaddress, :descomplement, 
+  
+  /*  $results = $sql->select("CALL sp_addresses_save(:idaddress, :idperson, :desaddress, :descomplement, 
     :descity, :desstate, :descountry, :deszipcode, :desdistrict)", [
 
       ':idaddress'=>$this->getidaddress(),
@@ -65,20 +71,22 @@ public function save(){
       ':deszipcode'=>$this->getdeszipcode(),
       ':desdistrict'=>$this->getdesdistrict()
 
-    ]);*/
+    ]);
 
-    $results = $sql->select("CALL sp_addresses_save(:idaddress, :idperson, :desaddress, :desnumber, :descomplement, :descity, :desstate, :descountry, :deszipcode, :desdistrict)", [
+    */
+
+   $results = $sql->select("CALL sp_addresses_save(:idaddress, :idperson, :desaddress, :desnumber, :descomplement, :descity, :desstate, :descountry, :deszipcode, :desdistrict)", [
     ":idaddress"=>$this->getidaddress(),
     ":idperson"=>$this->getidperson(),
     ":desaddress"=>utf8_encode($this->getdesaddress()),
-    ":desnumber"=>$this->getdesnumber(),
+    ":desnumber"=>3,
     ":descomplement"=>utf8_encode($this->getdescomplement()),
     ":descity"=>utf8_encode($this->getdescity()),
     ":desstate"=>utf8_encode($this->getdesstate()),
     ":descountry"=>$this->getdescountry(),
     ":deszipcode"=>$this->getdeszipcode(),
-    ":desdistrict"=>$this->getdesdistrict()
-]);
+    ":desdistrict"=>$this->getdesdistrict() 
+]); 
 
 
 
@@ -89,7 +97,7 @@ public function save(){
 
   }else{
 
-    throw new \Exception('Falha no endereco e banco aee recruta',8);
+   // throw new \Exception('Falha no endereco e banco aee recruta',8);
 
   }
 

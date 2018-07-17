@@ -36,8 +36,10 @@ class Cart extends Model{
               $user = User::getFromSession();
             
               $data['iduser'] = $user->getiduser();
-            }
 
+
+            }
+              
             $cart->setData($data);
 
             $cart->save();
@@ -47,6 +49,7 @@ class Cart extends Model{
           }
 
       }
+
 
    return $cart;
 

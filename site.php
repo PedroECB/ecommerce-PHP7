@@ -148,8 +148,11 @@ $app->get("/cart/:idproduct/remove", function($idproduct){
 
 $app->post("/cart", function(){
 
+  $user = User::getFromSession();
   $cart = Cart::getFromSession();
+
   $cart->setFreight($_POST['zipcode']);
+ 
   header("Location: /cart");
   exit;
 
@@ -170,12 +173,15 @@ if(isset($_GET['zipcode'])){
 
   $_GET['zipcode'] = $cart->getdeszipcode();
 
+
+
 }
 
 
 if(isset($_GET['zipcode'])){
 
     $address->loadFromCEP($_GET['zipcode']);
+
 
     $cart->setdeszipcode($_GET['zipcode']);
 
@@ -266,11 +272,13 @@ $app->post("/checkout", function(){
 
   $address->setData($_POST);
 
+
+
   $address->save();
 
   $cart = Cart::getFromSession();
 
-  $totals = $cart->getCalculateTotal();
+  $cart->getCalculateTotal();
 
   $order = new Order();
 
@@ -279,9 +287,10 @@ $app->post("/checkout", function(){
     'idaddress'=>$address->getidaddress(),
     'iduser'=>$user->getiduser(),
     'idstatus'=>OrderStatus::EM_ABERTO,
-    'vltotal'=>$totals['vlprice'] + $cart->getvlfreight()
+    'vltotal'=>$cart->getvltotal()
   ]);
 
+ 
   $order->save();
 
 
@@ -628,3 +637,47 @@ require_once($path."layout_itau.php");
 
 
 });
+
+
+
+
+$app->get("/profile/orders", function(){
+
+  User::verifyLogin();
+
+  $user = User::getFromSession();
+
+  $page = new Page();
+
+  $page->setTpl("profile-orders", [
+    'orders'=>$user->getOrders()
+  ]);
+
+
+
+});
+
+$app->get("/orders/:idorder", function($idorder){
+
+  User::verifyLogin();
+
+  $order = new Order();
+  $order->get((int) $idorder);
+
+  $cart = new Cart();
+  $cart->get((int) $order->getidcart());
+
+  $cart->getCalculateTotal();
+
+
+  $page = new Page();
+
+  $page->setTpl("profile-orders-detail", [
+    'order'=>$order->getValues(),
+    'cart'=>$cart->getValues(),
+    'products'=>$cart->getProducts()
+  ]);
+
+
+});
+
