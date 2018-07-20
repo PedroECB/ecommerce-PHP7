@@ -19,7 +19,7 @@
                 <div class="product-content-right">
                     <div class="woocommerce">
 
-                        <form action="/checkout">
+                        <form action="/cart">
                             
                             <?php if( $error != '' ){ ?>
 
@@ -85,7 +85,7 @@
                                     
                                     <div class="coupon">
                                         <label for="cep">CEP:</label>
-                                        <input type="text" placeholder="00000-000" value="<?php echo htmlspecialchars( $cart["deszipcode"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" id="cep" class="input-text" name="zipcode">
+                                        <input type="text" placeholder="00000-000" value="<?php if( isset($cart["deszipcode"]) ){ ?><?php echo htmlspecialchars( $cart["deszipcode"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?>" id="cep" class="input-text" name="zipcode">
                                         <input type="submit" formmethod="post" formaction="/cart" value="CALCULAR" class="button">
                                     </div>
 

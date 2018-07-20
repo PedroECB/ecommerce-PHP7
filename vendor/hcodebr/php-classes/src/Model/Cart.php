@@ -39,7 +39,7 @@ class Cart extends Model{
 
 
             }
-              
+
             $cart->setData($data);
 
             $cart->save();
@@ -192,9 +192,17 @@ public function getProductsTotal(){
 
 }
 
-public function setFreight($nrzipcode){
+public function setFreight($code){
 
-  $nrzipcode = str_replace("-","", $nrzipcode);
+
+//$codeNew = (string)$code;
+  $codeNew = "41387180";
+  //$code1 = $_POST['zipcode'];
+
+
+
+
+
 
   $totals = $this->getProductsTotal();
 
@@ -208,7 +216,7 @@ public function setFreight($nrzipcode){
       'sDsSenha'=>'',
       'nCdServico'=>'40010',
       'sCepOrigem'=>'09853120',
-      'sCepDestino'=>$nrzipcode,
+      'sCepDestino'=>$codeNew,
       'nVlPeso'=>$totals['vlweight'],
       'nCdFormato'=>'1',
       'nVlComprimento'=>$totals['vllength'],
@@ -225,7 +233,7 @@ public function setFreight($nrzipcode){
 
     $result = $xml->Servicos->cServico;
 
-    if($result->MsgErro != ''){
+    if($result->MsgErro !== ''){
 
       Cart::setMsgError($result->MsgErro);
 
@@ -237,7 +245,7 @@ public function setFreight($nrzipcode){
 
     $this->setnrdays($result->PrazoEntrega);
     $this->setvlfreight($result->Valor);
-    $this->setdeszipcode($nrzipcode);
+    $this->setdeszipcode($codeNew);
 
     $this->save();
 
@@ -250,7 +258,8 @@ public function setFreight($nrzipcode){
 
   }
 
-
+ 
+  
 }
 
 
@@ -294,7 +303,7 @@ public static function clearMsgError(){
 
 public function updateFreight(){
 
-  if($this->getdeszipcode() != ''){
+  if($this->getdeszipcode() !== ""){
 
     $this->setFreight($this->getdeszipcode());
 
@@ -324,6 +333,7 @@ public function getCalculateTotal(){
 
 
 }
+
 
 
 }   // FIM DA CLASSE

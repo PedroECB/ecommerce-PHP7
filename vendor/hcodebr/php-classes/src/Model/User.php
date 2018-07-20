@@ -157,7 +157,7 @@ public function get($iduser){
 }
 
 
-
+//password_hash($this->getdespassword(), PASSWORD_DEFAULT)
 
 
 public function update(){
@@ -167,7 +167,7 @@ public function update(){
       ":iduser"=>$this->getiduser(),
       ":desperson"=>$this->getdesperson(),
       ":deslogin"=>$this->getdeslogin(),
-      ":despassword"=>$this->getdespassword(),
+      ":despassword"=>password_hash($this->getdespassword(), PASSWORD_DEFAULT),
       ":desemail"=>$this->getdesemail(),
       ":nrphone"=>$this->getnrphone(),
       ":inadmin"=>$this->getinadmin()
