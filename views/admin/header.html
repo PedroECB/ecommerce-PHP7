@@ -24,6 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   -->
   <link rel="stylesheet" href="/../../resources/admin/dist/css/skins/skin-blue.min.css">
 
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -51,7 +52,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue orange sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -60,9 +61,9 @@ desired effect
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>HC</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>Hcode</b>Store</span>
     </a>
 
     <!-- Header Navbar -->
@@ -76,11 +77,11 @@ desired effect
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
-            <!-- Menu toggle button -->
+            <!-- Menu toggle button 
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">4</span>
-            </a>
+            </a>-->
             <ul class="dropdown-menu">
               <li class="header">You have 4 messages</li>
               <li>
@@ -112,11 +113,11 @@ desired effect
 
           <!-- Notifications Menu -->
           <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
+            <!-- Menu toggle button 
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning">10</span>
-            </a>
+            </a>-->
             <ul class="dropdown-menu">
               <li class="header">You have 10 notifications</li>
               <li>
@@ -135,11 +136,11 @@ desired effect
           </li>
           <!-- Tasks Menu -->
           <li class="dropdown tasks-menu">
-            <!-- Menu Toggle Button -->
+            <!-- Menu Toggle Button 
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
               <span class="label label-danger">9</span>
-            </a>
+            </a>-->
             <ul class="dropdown-menu">
               <li class="header">You have 9 tasks</li>
               <li>
@@ -172,12 +173,7 @@ desired effect
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- The user image in the navbar-->
-              <img src="/../../resources/admin/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
-            </a>
+           
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
@@ -216,7 +212,7 @@ desired effect
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="/admin/logout" ><i class="fa  fa-power-off"></i></a>
           </li>
         </ul>
       </div>
@@ -231,7 +227,8 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/../../resources/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <!--  <img src="/../../resources/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
+          <br>
         </div>
         <div class="pull-left info">
           <p>Alexander Pierce</p>
@@ -240,7 +237,7 @@ desired effect
         </div>
       </div>
 
-      <!-- search form (Optional) -->
+      <!-- search form (Optional) 
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -249,18 +246,18 @@ desired effect
                 </button>
               </span>
         </div>
-      </form>
+      </form>-->
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">HEADER</li>
+        <li class="header"><center>Menu</center></li>
         <!-- Optionally, you can add icons to the links -->
         <li><a href="/admin/users"><i class="fa fa-users"></i> <span>Usuários</span></a></li>
-        <li><a href="/admin/categories"><i class="fa fa-link"></i> <span>Categorias</span></a></li>
-        <li><a href="/admin/products"><i class="fa fa-link"></i> <span>Produtos</span></a></li>
-        <li><a href="/admin/orders"><i class="fa fa-link"></i> <span>Pedidos</span></a></li>
-        <li class="treeview">
+        <li><a href="/admin/categories"><i class="fa fa-barcode"></i> <span>Categorias</span></a></li>
+        <li><a href="/admin/products"><i class="fa fa-shopping-cart"></i> <span>Produtos</span></a></li>
+        <li><a href="/admin/orders"><i class="fa fa-money"></i> <span>Pedidos</span></a></li>
+       <!-- <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -270,7 +267,7 @@ desired effect
             <li><a href="#">Link in level 2</a></li>
             <li><a href="#">Link in level 2</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
       <!-- /.sidebar-menu -->
     </section>
